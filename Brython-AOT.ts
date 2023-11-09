@@ -66,6 +66,8 @@ console.log('** loading Brython parser **');
 
 const PARSER_SCRIPT = await Deno.readTextFile( Deno.cwd() + '/brython_standard_parser.js' );
 
+window.__BRYTHON__ = {};
+
 window.location = {
 	href: "http://localhost/",
 	origin: "http://localhost",
@@ -77,6 +79,8 @@ window.document = {
 window.MutationObserver = function() { this.observe = () => {};  }
 
 eval(PARSER_SCRIPT);
+
+console.log( __BRYTHON__.to_js( __BRYTHON__.py2js("print('toto')", "toto") ) );
 
 console.log('** converting existing files **');
 

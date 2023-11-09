@@ -3,7 +3,8 @@
 // implementation [3, 11, 0, 'dev', 0]
 // version compiled from commented, indented source files at
 // github.com/brython-dev/brython
-var __BRYTHON__=__BRYTHON__ ||{}
+
+var __BRYTHON__= globalThis.__BRYTHON__ ||{}
 try{
 eval("async function* f(){}")}catch(err){console.warn("Your browser is not fully supported. If you are using "+
 "Microsoft Edge, please upgrade to the latest version")}
