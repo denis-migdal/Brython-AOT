@@ -32,8 +32,24 @@ async function convertFile(src, dst) {
 		await Deno.mkdir(dstdir, { recursive: true });
 	
 	const pycode = await Deno.readTextFile(src);
-	const jscode = "ok"; //TODO
-	await Deno.writeTextFile(dst, jscode);
+	
+	
+	let js_ast = __BRYTHON__.py2js(pycode, "exec");
+	//TODO: output modes
+	const js_code =
+`// Javascript code generated from Brython AOT
+// https://github.com/denis-migdal/Brython-AOT
+
+(async function(){
+
+__BRYTHON__.imported["exec"] = {};
+__BRYTHON__.frames_stack = [];
+
+${js_ast.to_js()}
+
+})();
+`	
+	await Deno.writeTextFile(dst, js_code);
 }
 
 async function isDirEmpty(path) {
@@ -82,14 +98,6 @@ window.MutationObserver = function() { this.observe = () => {};  }
 */
 
 eval(PARSER_SCRIPT);
-
-let js_ast = __BRYTHON__.py2js("print('toto')", "toto");
-console.log( js_ast );
-console.log("====");
-let js_code =  js_ast.to_js()
-console.log(  js_code );
-console.log("====");
-eval(js_code);
 
 console.log('** converting existing files **');
 
