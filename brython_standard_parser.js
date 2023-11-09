@@ -247,7 +247,7 @@ char=src.substr(pos,2)
 pos++}
 pos++
 switch(state){case "line_start":
-line=get_line_at(pos-1)
+globalThis.line=get_line_at(pos-1)
 line_start=pos
 line_num++
 if(mo=/^\f?(\r\n|\r|\n)/.exec(src.substr(pos-1))){
@@ -17472,7 +17472,7 @@ if(rule.items){var makes=[],nb_consuming=0,ast,_make
 if(match.matches.length > 0){var first=match.matches[0],last=$B.last(match.matches)
 EXTRA={lineno:tokens[first.start].start[0],col_offset:tokens[first.start].start[1],end_lineno:tokens[last.end-1].end[0],end_col_offset:tokens[last.end-1].end[1]}
 var pos=last.end-1,last_line=tokens[pos].start[0]
-if(last_line > tokens[last.end-1].start[0]+1){last_token={type:'NL',start:[last_line-1,0],end:[last_line-1,0],line:'\n'}}else{last_token=tokens[last.end-1]}
+if(last_line > tokens[last.end-1].start[0]+1){globalThis.last_token={type:'NL',start:[last_line-1,0],end:[last_line-1,0],line:'\n'}}else{globalThis.last_token=tokens[last.end-1]}
 p.arena={lineno:last_token.start[0],offset:last_token.start[1],end_lineno:last_token.end[0],end_col_offset:last_token.end[1]}
 if(test){console.log('last token',tokens[last.end])
 console.log('extra',EXTRA)}}
@@ -17485,6 +17485,8 @@ if(rule.items[i].alias){names[rule.items[i].alias]=_make
 eval('var '+rule.items[i].alias+' = _make')}
 if(! rule.items[i].lookahead){nb_consuming++}}
 if(rule.action){try{
+console.log(rule.action);
+globalThis.a = ["", ""];
 ast=eval(rule.action)}catch(err){if($B.debug > 2){var rule_str=show_rule(rule,true)
 console.log('error eval action of',rule_str)
 console.log('p',p)
