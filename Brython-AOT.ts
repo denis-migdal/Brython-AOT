@@ -10,7 +10,7 @@ const flags = parse(Deno.args, {
 });
 
 if(flags.usage) {
-	console.log('deno run --allow-read --allow-write Brython-AOT.ts [--watch] --src SRC_DIR --dst DST_DIR');
+	console.log('deno run --allow-read --allow-write Brython-AOT.ts [--watch] --src $SRC_DIR --dst $DST_DIR');
 	Deno.exit(0);
 }
 
