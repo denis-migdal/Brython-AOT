@@ -64,23 +64,32 @@ const {src: SRC_DIR, dst: DST_DIR, watch} = flags;
 
 console.log('** loading Brython parser **');
 
-const PARSER_SCRIPT = await Deno.readTextFile( Deno.cwd() + '/brython_standard_parser.js' );
+const PARSER_SCRIPT = await Deno.readTextFile( Deno.cwd() + '/brython.js' );
 
 window.__BRYTHON__ = {};
 
+/*
 window.location = {
 	href: "http://localhost/",
 	origin: "http://localhost",
 	pathname: "/"
 };
 window.document = {
-	getElementsByTagName: () => [{src: "http://localhost/"}]
-};
+	getElementsByTagName: () => [{src: "http://localhost/"}],
+	currentScript: () => {src: "http://localhost/"}
+}; 
 window.MutationObserver = function() { this.observe = () => {};  }
+*/
 
 eval(PARSER_SCRIPT);
 
-console.log( __BRYTHON__.to_js( __BRYTHON__.py2js("print('toto')", "toto") ) );
+let js_ast = __BRYTHON__.py2js("print('toto')", "toto");
+console.log( js_ast );
+console.log("====");
+let js_code =  js_ast.to_js()
+console.log(  js_code );
+console.log("====");
+eval(js_code);
 
 console.log('** converting existing files **');
 
