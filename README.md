@@ -2,6 +2,8 @@
 
 Convert Python to JavaScript Ahead of Time. Based on Brython.
 
+Note: obsolete, use [SBrython](https://github.com/denis-migdal/SBrython) in `BRYTHON` compat mode.
+
 ## Usage :
 
 ```shell
